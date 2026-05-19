@@ -468,11 +468,11 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
         pixelCount,
         redPixels,
         redRatio,
-        threshold: 0.05,
-        allowed: redRatio <= 0.05,
+        threshold: 0.2,
+        allowed: redRatio <= 0.2,
       });
 
-      if (redRatio > 0.05) {
+      if (redRatio > 0.2) {
         console.warn('Blocked upload due to gore heuristic (red ratio=', redRatio, ')');
         return res.status(403).json({ error: 'Upload blocked: image flagged as potentially graphic' });
       }
