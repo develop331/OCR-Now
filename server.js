@@ -432,11 +432,11 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
         console.log('[upload] nsfw score', {
           filename,
           nsfwProb,
-          threshold: 0.6,
-          allowed: nsfwProb < 0.6,
+          threshold: 0.4,
+          allowed: nsfwProb < 0.4,
         });
 
-        if (nsfwProb >= 0.25) {
+        if (nsfwProb >= 0.4) {
           console.warn('Blocked upload due to NSFW classifier (probability=', nsfwProb, ')');
           return res.status(403).json({ error: 'Upload blocked: image flagged as NSFW' });
         }
@@ -472,7 +472,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
         allowed: redRatio <= 0.05,
       });
 
-      if (redRatio > 0.03) {
+      if (redRatio > 0.05) {
         console.warn('Blocked upload due to gore heuristic (red ratio=', redRatio, ')');
         return res.status(403).json({ error: 'Upload blocked: image flagged as potentially graphic' });
       }
