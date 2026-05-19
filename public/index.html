@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OCR-Now Chat</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="safety-banner" role="note" aria-label="Age requirement notice">
+      Unfortunately, due to the Online Safety Act 2023, all users of this app (application) must be at least 14 years of age
+    </div>
+    <main class="app-shell">
+      <section class="panel" id="auth-panel">
+        <header class="header-block">
+          <p class="eyebrow">OCR-Now</p>
+          <h1>Sign in</h1>
+          <p class="status">Create an account or log in to chat.</p>
+        </header>
+
+        <div class="auth-grid">
+          <form id="signup-form" class="card-form" novalidate>
+            <h2>Sign up</h2>
+            <label class="field">
+              <span>Username</span>
+              <input id="signup-username" name="username" type="text" maxlength="40" />
+            </label>
+            <label class="field">
+              <span>Password</span>
+              <input id="signup-password" name="password" type="password" />
+            </label>
+            <label class="field">
+              <span>Age</span>
+              <input id="signup-age" name="age" type="number" />
+            </label>
+            <button type="submit">Create account</button>
+          </form>
+
+          <form id="login-form" class="card-form" novalidate>
+            <h2>Log in</h2>
+            <label class="field">
+              <span>Username</span>
+              <input id="login-username" name="username" type="text" />
+            </label>
+            <label class="field">
+              <span>Password</span>
+              <input id="login-password" name="password" type="password" />
+            </label>
+            <button type="submit">Log in</button>
+          </form>
+        </div>
+
+        <p id="auth-error" class="status error" role="alert"></p>
+      </section>
+
+      <section class="panel chat-panel hidden" id="chat-panel">
+        <header class="header-block chat-header">
+          <div>
+            <p class="eyebrow">OCR-Now</p>
+            <h1>Chat</h1>
+          </div>
+          <div class="header-actions">
+            <p id="welcome-text" class="status"></p>
+            <a href="/images.txt" target="_blank" rel="noreferrer">view images.txt</a>
+            <button id="logout-button" type="button">Log out</button>
+          </div>
+        </header>
+
+        <ul id="messages" class="messages" aria-live="polite"></ul>
+
+        <form id="composer" class="composer">
+          <label class="field field-grow">
+            <span>Message</span>
+            <input id="message" name="message" type="text" maxlength="500" placeholder="Type a message and press Enter" autocomplete="off" required />
+          </label>
+
+          <div class="image-upload-section">
+            <label class="image-input-label" title="Upload an image">
+              <input id="image-input" name="image" type="file" accept="image/*" />
+              <span>📷</span>
+            </label>
+            <span id="image-label" class="image-label"></span>
+          </div>
+
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-message">
+      <div class="modal-card">
+        <p id="modal-message"></p>
+        <button id="modal-close" type="button">OK</button>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>
