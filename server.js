@@ -871,8 +871,8 @@ if (HTTPS_CONFIG) {
     key: fs.readFileSync(HTTPS_CONFIG.key)
   };
   
-  https.createServer(httpsOptions, app).listen(HTTPS_CONFIG.port, () => {
-    console.log(`Timetable app running on https://localhost:${HTTPS_CONFIG.port}`);
+  https.createServer(httpsOptions, app).listen(PORT, () => {
+    console.log(`Timetable app running on https://localhost:${PORT}`);
   }).on("error", (err) => {
     console.error("HTTPS server failed to start:", err.message);
   });
