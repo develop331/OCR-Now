@@ -7,6 +7,9 @@ const fs = require('fs');
 const multer = require('multer');
 const sharp = require('sharp');
 const { Server } = require('socket.io');
+// import { PORT, HTTPS_CONFIG } from "./src/config.js";
+const fs = require('fs')
+const { PORT, HTTPS_CONFIG } = fs.readFileSync('config.json', 'utf8');
 
 // Optional NSFW classifier (best-effort)
 let nsfwModel = null;
@@ -55,7 +58,7 @@ const upload = multer({
   },
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 443;
 const authSecret = process.env.AUTH_SECRET || 'ocr-now-dev-secret';
 const db = new Database(path.join(__dirname, 'messages.db'));
 const maxMessages = 100;
@@ -858,6 +861,25 @@ process.on('SIGTERM', () => {
   process.exit(0);
 });
 
-server.listen(port, () => {
-  console.log(`Chat app running at http://localhost:${port}`);
-});
+// server.listen(port, () => {
+//   console.log(`Chat app running at http://localhost:${port}`);
+// });
+
+if (HTTPS_CONFIG) {
+  const httpsOptions = {
+    cert: fs.readFileSync(HTTPS_CONFIG.cert),
+    key: fs.readFileSync(HTTPS_CONFIG.key)
+  };
+  
+  https.createServer(httpsOptions, server).listen(HTTPS_CONFIG.port, () => {
+    console.log(`Timetable app running on https://localhost:${HTTPS_CONFIG.port}`);
+  }).on("error", (err) => {
+    console.error("HTTPS server failed to start:", err.message);
+  });
+} else {
+  server.listen(PORT, () => {
+    console.log(`Timetable app running on http://localhost:${PORT}`);
+  }).on("error", (err) => {
+    console.error("Server failed to start:", err.message);
+  });
+}
