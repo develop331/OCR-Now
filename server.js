@@ -8,7 +8,7 @@ const multer = require('multer');
 const sharp = require('sharp');
 const { Server } = require('socket.io');
 // import { PORT, HTTPS_CONFIG } from "./src/config.js";
-const { PORT, HTTPS_CONFIG } = fs.readFileSync('config.json', 'utf8');
+const { PORT, HTTPS_CONFIG } = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 // Optional NSFW classifier (best-effort)
 let nsfwModel = null;
