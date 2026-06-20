@@ -12,7 +12,7 @@
     "@tensorflow/tfjs-node": "^4.22.0",
     "better-sqlite3": "^11.9.1",
     "express": "^4.21.2",
-    "multer": "^2.1.1",
+    "multer": "^2.2.0",
     "nsfwjs": "^4.3.0",
     "sharp": "^0.34.5",
     "socket.io": "^4.8.1"
